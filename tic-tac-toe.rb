@@ -1,13 +1,17 @@
 class Game
 
-    @@row_slots = [[0, 0, 0],[1, 1, 1],[2, 2, 2]]
+    @@row_slots = [[1, 2, 3],[4, 5, 6],[7, 8, 9]]
 
 
-    def initialize(player_1, player_2)
-        @player_1 = player_1
-        @player_2 = player_2
+    def initialize(player_1_class, player_2_class)
+        @player_1_class = player_1_class
+        @player_2_class = player_2_class
     end
- 
+    def play()
+        player_1 = @player_1_class.new(self)
+        player_2 = @player_2_class.new(self)
+        create_board()
+    end
     def create_board()
         col_separator, row_separator = "|", "---+---+---"
 
@@ -23,7 +27,17 @@ class Game
 end
 
 class Player
+    def initialize(game)
+        @game = game
+    end
 end
 
-class Computer
+class HumanPlayer < Player
 end
+
+class ComputerPlayer
+end
+
+game1 = Game.new(HumanPlayer, HumanPlayer)
+
+game1.play()
